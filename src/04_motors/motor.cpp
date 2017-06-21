@@ -35,7 +35,6 @@ void CMotor::run(int left, int right)
   	if (right<-255)
   		right = -255;
 
-
   	/*pravy motor*/
   	if (right > 0)
   	{

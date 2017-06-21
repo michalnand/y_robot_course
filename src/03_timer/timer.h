@@ -6,8 +6,8 @@
 
 #define TIMERS_COUNT    8
 
-#define CPU_FREQUENCY   10000000
-#define TIMER_FREQUENCY 1000
+#define CPU_FREQUENCY   (uint32_t)10000000
+#define TIMER_FREQUENCY (uint32_t)1000
 
 
 struct sTimer

@@ -1,0 +1,5 @@
+1) atmel studio, hello world
+2) prva alikacia v C++, polymorfizmus, ovladanie gpio
+3) casovac a udalostne planovanie, callbacks, virtualizacia preruseni
+4) riadenie motorov, dynamicka alokacia
+5) stabilizacia robota, i2c gyroskop, PID regulacia
