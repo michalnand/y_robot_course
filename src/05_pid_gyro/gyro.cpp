@@ -43,7 +43,7 @@ void CGyro::init(class CI2C_Interface *i2c_)
     //continuos mode
     i2c->write_reg(HMC5883_ADDRESS, HMC5883_MODE, 0);
 
-    if (i2c->read_reg(HMC5883_ADDRESS, HMC5883_ID) == HMC5883_ID_VALUE)
+    if (i2c->read_reg(HMC5883_ADDRESS, HMC5883_ID) != HMC5883_ID_VALUE)
       error = 0;
     else
       error = 1;

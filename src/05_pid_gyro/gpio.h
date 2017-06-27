@@ -21,49 +21,7 @@ class TGpio
 public:
     TGpio()
     {
-      if (port_name == TGPIOA)
-      {
-        if (mode)
-          DDRA&=~(1<<pin);
-        else
-          DDRA|= (1<<pin);
-
-        if (mode == GPIO_MODE_IN_PULLUP)
-          PORTA|= (1<<pin);
-      }
-
-      if (port_name == TGPIOB)
-      {
-        if (mode)
-          DDRB&=~(1<<pin);
-        else
-          DDRB|= (1<<pin);
-
-        if (mode == GPIO_MODE_IN_PULLUP)
-          PORTB|= (1<<pin);
-      }
-
-      if (port_name == TGPIOC)
-      {
-        if (mode)
-          DDRC&=~(1<<pin);
-        else
-          DDRC|= (1<<pin);
-
-        if (mode == GPIO_MODE_IN_PULLUP)
-          PORTC|= (1<<pin);
-      }
-
-      if (port_name == TGPIOD)
-      {
-        if (mode)
-          DDRD&=~(1<<pin);
-        else
-          DDRD|= (1<<pin);
-
-        if (mode == GPIO_MODE_IN_PULLUP)
-          PORTD|= (1<<pin);
-      }
+      set_mode(mode);
     }
 
     inline void set_mode(const unsigned char pin_mode)

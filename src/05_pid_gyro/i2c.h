@@ -253,6 +253,7 @@ class TI2C : public CI2C_Interface
 
 };
 
+
 extern class TI2C<TGPIOB, 5, 7, 50> i2c;
 
 
