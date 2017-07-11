@@ -3,7 +3,7 @@
 
 #include "i2c.h"
 
-struct sITG3200
+struct sLSM_3VECT
 {
     int32_t x, y, z;
 };
@@ -11,10 +11,16 @@ struct sITG3200
 class CGyro
 {
   public:
-    struct sITG3200 result;
-    struct sITG3200 angles;
+    struct sLSM_3VECT acceleration;
 
-    struct sITG3200 offset;
+    struct sLSM_3VECT result;
+    struct sLSM_3VECT angles;
+
+    struct sLSM_3VECT offset;
+
+    int32_t present;
+    int32_t samples;
+
 
   private:
     class CI2C_Interface *i2c;

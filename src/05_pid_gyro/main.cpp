@@ -5,6 +5,7 @@
 #include <terminal.h>
 
 TGpio<TGPIOA, 5, GPIO_MODE_OUT> led1;
+TGpio<TGPIOA, 6, GPIO_MODE_OUT> led2;
 
 void blink()
 {
@@ -16,12 +17,33 @@ void blink()
   }
 }
 
+void blink2()
+{
+  static unsigned int state = 0;
+  switch (state)
+  {
+    case 0: led2 = 1; state = 1; break;
+    case 1: led2 = 0; state = 0; break;
+  }
+}
+
+
+float saturate(float value, float min, float max)
+{
+  if (value < min)
+    value = min;
+
+  if (value > max)
+    value = max;
+
+  return value;
+}
 
 void gyro_example(bool gyro_enabled)
 {
-  float kp = 3.0;
+  float kp = 2.0;
   float ki = 0.0;
-  float kd = 30.0;
+  float kd = 10.0;
 
   float k0 = kp + ki + kd;
   float k1 = -kp - 2.0*kd;
@@ -36,6 +58,10 @@ void gyro_example(bool gyro_enabled)
   class CGyro gyro;
   gyro.init(&i2c);
 
+  if (gyro.present)
+    timer.add_task(blink2, 50, false);
+
+
   float speed = 100*0;
   while (1)
   {
@@ -44,7 +70,7 @@ void gyro_example(bool gyro_enabled)
     float angle = 0.0;
 
     if (gyro_enabled)
-      angle = -gyro.angles.z*0.1;
+      angle = -gyro.angles.y*0.1;
 
     e2 = e1;
     e1 = e0;
@@ -52,8 +78,8 @@ void gyro_example(bool gyro_enabled)
 
     u+= k0*e0 + k1*e1 + k2*e2;  //process PID controller
 
-    int left = u + speed;
-    int right = -u + speed;
+    int left = saturate(u + speed, -256, 256);
+    int right = saturate(-u + speed, -256, 256);
 
     motor.run(left, right);
 
@@ -69,15 +95,19 @@ void gyro_test()
 
     gyro.init(&i2c);
 
+    if (gyro.present)
+      timer.add_task(blink2, 50, false);
+
+
+
     while (1)
     {
       gyro.read();
 
       if ((cnt++%10) == 0)
       {
-        terminal.printf("%i %i %i :", gyro.offset.x, gyro.offset.y, gyro.offset.z);
-        terminal.printf("%i %i %i :", gyro.result.x, gyro.result.y, gyro.result.z);
         terminal.printf("%i %i %i :", gyro.angles.x, gyro.angles.y, gyro.angles.z);
+
         terminal.printf("\n");
       }
       timer.delay_ms(10);
@@ -103,7 +133,8 @@ int main()
     if (key1 == 0)
       gyro_enabled = true;
 
-    gyro_example(gyro_enabled);
+   gyro_example(gyro_enabled);
+  //  gyro_test();
   }
 
 }
