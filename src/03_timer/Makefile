@@ -1,5 +1,7 @@
 CXX_SRCS = $(shell find  -name '*.cpp')
-INC = -I .
+CXX_SRCS+= $(shell find  ../libs -name '*.cpp')
+
+INC = -I . -I../libs
 
 
 TARGET = -mmcu=atmega16

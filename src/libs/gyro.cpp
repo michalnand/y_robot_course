@@ -192,9 +192,9 @@ void CGyro::read(bool calibration)
   result.y = y - offset.y;
   result.z = z - offset.z;
 
-  angles.x+= result.x/50;
-  angles.y+= result.y/50;
-  angles.z+= result.z/50;
+  angles.x+= result.x/25;
+  angles.y+= result.y/25;
+  angles.z+= result.z/25;
 
 
 

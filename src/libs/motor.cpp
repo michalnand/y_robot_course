@@ -6,7 +6,7 @@ CMotor::CMotor()
   	PORTD&=~(1<<5)|(1<<6) | (1<<4)|(1<<7);
 
   	TCCR1A = (1<<COM1A1) | (1<<COM1B1) | (1<<WGM10); // neinvertovana, fazovo korigovana pwm
-  	TCCR1B = (1<<CS11);				//clk/8
+  	TCCR1B = (1<<CS10);				//clk/1
 
   	OCR1AH = 0;					// pwm hodnoty na 0 -> zastavit motory
   	OCR1AL = 0;
