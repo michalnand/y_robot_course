@@ -2,16 +2,6 @@
 
 TGpio<TGPIOA, 6, GPIO_MODE_OUT> led;
 
-void blink_kernel()
-{
-  static unsigned int state = 0;
-  switch (state)
-  {
-    case 0: led = 1; state = 1; break;
-    case 1: led = 0; state = 0; break;
-  }
-}
-
 CStabilityKernel::CStabilityKernel()
 {
 
@@ -27,7 +17,9 @@ void CStabilityKernel::init(bool pd_controller)
   gyro.init(&i2c);
 
   if (gyro.present)
-    timer.add_task(blink_kernel, 50, false);
+    led = 0;
+  else
+    led = 1;
 
   if (pd_controller)
   {

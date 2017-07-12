@@ -10,43 +10,11 @@
 #define LED_DIG1	(1<<0)
 #define LED_DIG2	(1<<1)
 
-volatile unsigned char g_led_state;
-volatile unsigned char g_led_dig1;
-volatile unsigned char g_led_dig2;
-
-
-void led_refresh()
-{
-  switch (g_led_state)
-	{
-		case 0:
-			LED_DISP_SEL_PORT|=LED_DIG1|LED_DIG2;
-
-			LED_DISP_PORT = g_led_dig1;
-
-			LED_DISP_SEL_PORT&=~LED_DIG1;
-
-			g_led_state = 1;
-			break;
-
-		case 1:
-			LED_DISP_SEL_PORT|=LED_DIG1|LED_DIG2;
-
-			LED_DISP_PORT = g_led_dig2;
-
-			LED_DISP_SEL_PORT&=~LED_DIG2;
-
-			g_led_state = 0;
-			break;
-  }
-}
-
-
 CLEDDisplay::CLEDDisplay()
 {
-  g_led_state = 0;
-  g_led_dig1 = 0xff;
-  g_led_dig2 = 0xff;
+  led_state = 0;
+  led_dig1 = 0xff;
+  led_dig2 = 0xff;
 
   LED_DISP_SEL_DIR|= LED_DIG1 | LED_DIG2;
   LED_DISP_SEL_PORT|= LED_DIG1 | LED_DIG2;
@@ -54,7 +22,7 @@ CLEDDisplay::CLEDDisplay()
   LED_DISP_PORT = 0xff;
   LED_DISP_DIR = 0xff;
 
-  timer.add_task(led_refresh, 5, false);
+  timer.add_task(this, 5);
 }
 
 CLEDDisplay::~CLEDDisplay()
@@ -64,13 +32,9 @@ CLEDDisplay::~CLEDDisplay()
 
 void CLEDDisplay::display_hex(unsigned char number)
 {
-	unsigned char dig1_tmp = led_display_bcd_7seg(number>>4);
-	unsigned char dig2_tmp = led_display_bcd_7seg(number&0x0f);
+	led_dig1 = led_display_bcd_7seg(number>>4);
+	led_dig2 = led_display_bcd_7seg(number&0x0f);
 
-	cli();
-	g_led_dig1 = dig1_tmp;
-	g_led_dig2 = dig2_tmp;
-	sei();
 }
 
 void CLEDDisplay::display_dec(unsigned char number)
@@ -78,13 +42,8 @@ void CLEDDisplay::display_dec(unsigned char number)
   if (number > 99)
     number = 99;
 
-	unsigned char dig1_tmp = led_display_bcd_7seg(number/10);
-	unsigned char dig2_tmp = led_display_bcd_7seg(number%10);
-
-	cli();
-	g_led_dig1 = dig1_tmp;
-	g_led_dig2 = dig2_tmp;
-	sei();
+	led_dig1 = led_display_bcd_7seg(number/10);
+	led_dig2 = led_display_bcd_7seg(number%10);
 }
 
 
@@ -115,4 +74,30 @@ unsigned char CLEDDisplay::led_display_bcd_7seg(unsigned char number)
 	}
 
 	return (~res);
+}
+
+void CLEDDisplay::operator()()
+{
+  switch (led_state)
+	{
+		case 0:
+			LED_DISP_SEL_PORT|=LED_DIG1|LED_DIG2;
+
+			LED_DISP_PORT = led_dig1;
+
+			LED_DISP_SEL_PORT&=~LED_DIG1;
+
+			led_state = 1;
+			break;
+
+		case 1:
+			LED_DISP_SEL_PORT|=LED_DIG1|LED_DIG2;
+
+			LED_DISP_PORT = led_dig2;
+
+			LED_DISP_SEL_PORT&=~LED_DIG2;
+
+			led_state = 0;
+			break;
+  }
 }

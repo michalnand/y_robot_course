@@ -3,14 +3,14 @@
 
 
 #include <gpio.h>
-#include <timer.h>
+#include <rt_timer.h>
 #include <gyro.h>
 #include <motor.h>
 #include <terminal.h>
 
 
 
-class CStabilityKernel
+class CStabilityKernel: public CTaskInterface
 {
   private:
     float kp;
