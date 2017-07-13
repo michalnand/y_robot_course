@@ -47,10 +47,27 @@ class CLaserTask: public CTaskInterface
     uint32_t distance;
     uint32_t beep_counter;
 
+    float u, k0, k1, k2, e0, e1, e2;
+
+    class CMotor motor;
+
   public:
     CLaserTask()
     {
       beep = 1;
+
+      float kp = 2.0;
+      float ki = 0.0;
+      float kd = 2.0;
+
+      u = 0.0;
+      k0 = kp + ki + kd;
+      k1 = -kp + -2.0*kd;
+      k2 = kd;
+
+      e0 = 0;
+      e1 = 0;
+      e2 = 0;
     }
 
     ~CLaserTask()
@@ -77,6 +94,7 @@ class CLaserTask: public CTaskInterface
 
       led_display.display_dec(distance/10);
 
+      
       if (beep_counter != 0)
         beep_counter--;
       else
@@ -88,6 +106,16 @@ class CLaserTask: public CTaskInterface
         beep = 0;
       else
         beep = 1;
+
+
+      e2 = e1;
+      e1 = e0;
+      e0 = 150.0 - distance;
+
+      u+= k0*e0 + k1*e1 + k2*e2;
+
+      int speed = u;
+    //  motor.run(speed, speed);
     }
 };
 
