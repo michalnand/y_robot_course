@@ -4,7 +4,7 @@ TGpio<TGPIOA, 6, GPIO_MODE_OUT> led;
 
 CStabilityKernel::CStabilityKernel()
 {
-
+  led = 1;
 }
 
 CStabilityKernel::~CStabilityKernel()
@@ -23,9 +23,9 @@ void CStabilityKernel::init(bool pd_controller)
 
   if (pd_controller)
   {
-    kp = 1.8;
+    kp = 1.5;
     ki = 0.0;
-    kd = 10.0;
+    kd = 5.0;
   }
   else
   {

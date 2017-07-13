@@ -1,5 +1,5 @@
 #include <gpio.h>
-#include <timer.h>
+#include <rt_timer.h>
 #include <gyro.h>
 #include <motor.h>
 #include <terminal.h>
@@ -8,83 +8,120 @@
 #include <led_display.h>
 
 
-#include <lidar_kernel.h>
 
-
-TGpio<TGPIOA, 5, GPIO_MODE_OUT> led1;
-
-void blink()
+class CBlink: public CTaskInterface
 {
-  static unsigned int state = 0;
-  switch (state)
-  {
-    case 0: led1 = 1; state = 1; break;
-    case 1: led1 = 0; state = 0; break;
-  }
-}
+  private:
+    TGpio<TGPIOA, 5, GPIO_MODE_OUT> led;
+    unsigned int state;
 
+  public:
+    CBlink()
+    {
+      state = 0;
+    }
 
+    ~CBlink()
+    {
 
+    }
 
+    void operator ()()
+    {
+      switch (state)
+      {
+        case 0: led = 1; state = 1; break;
+        case 1: led = 0; state = 0; break;
+      }
+    }
+};
 
-class CLidarKernel lidar_kernel;
-
-void lidar_kernel_task()
+class CLaserTask: public CTaskInterface
 {
-  lidar_kernel();
-}
+  private:
+    class CVL53L0X      laser;
+    class CLEDDisplay   led_display;
 
+    TGpio<TGPIOA, 7, GPIO_MODE_OUT> beep;
+
+    uint32_t distance;
+    uint32_t beep_counter;
+
+  public:
+    CLaserTask()
+    {
+      beep = 1;
+    }
+
+    ~CLaserTask()
+    {
+
+    }
+
+    void init()
+    {
+      led_display.display_dec(0);
+      laser.init(&i2c);
+      distance = 1000;
+      beep_counter = 0;
+    }
+
+    void operator ()()
+    {
+      distance = (31*distance + (laser.read() - 20) )/32;
+
+      if (distance > 300)
+        distance = 300;
+
+      terminal.printf("%i\n", distance);
+
+      led_display.display_dec(distance/10);
+
+      if (beep_counter != 0)
+        beep_counter--;
+      else
+      {
+        beep_counter = distance/10;
+      }
+
+      if (beep_counter == 1)
+        beep = 0;
+      else
+        beep = 1;
+    }
+};
+
+
+class CBlink blink_task;
+class CLaserTask laser_task;
 
 
 int main()
 {
   TGpio<TGPIOB, 3, GPIO_MODE_IN_PULLUP> key1;
   TGpio<TGPIOB, 2, GPIO_MODE_IN_PULLUP> key2;
-  TGpio<TGPIOA, 7, GPIO_MODE_OUT> beep;
 
-  beep = 1;
-
-  timer.add_task(blink, 200, false);
-
+  timer.add_task(&blink_task, 200);
 
   terminal.printf("\nterminal ready\n\n");
 
-  class CVL53L0X laser;
-
-  class CLEDDisplay led_display;
-
-  led_display.display_dec(0);
 
   while (1)
   {
     while ((key1 != 0) && (key2 != 0))
-      __asm("nop");
-/*
-    lidar_kernel.init();
-    timer.add_task(lidar_kernel_task, 10, true);
-    while (1)
+      timer.main();
+
+    laser_task.init();
+    timer.add_task(&laser_task, 20);
+
+    while(1)
     {
       timer.main();
     }
-  */
-   laser.init(&i2c);
 
-   while (1)
-   {
-     int32_t distance_average = 0;
-     for (unsigned int i = 0; i < 64; i++)
-     {
-      distance_average+= laser.read();
-      timer.delay_ms(10);
-     }
 
-    distance_average/= 64;
 
-     terminal.printf("%i\n", distance_average);
 
-     led_display.display_dec(distance_average/10);
-
-    
 /*
      beep = 0;
      timer.delay_ms(20);
@@ -100,7 +137,6 @@ int main()
      beep = 1;
      timer.delay_ms(beep_time);
      */
-   }
 
   }
 

@@ -34,9 +34,9 @@ class CBlink: public CTaskInterface
     }
 };
 
+
 class CStabilityKernel stability_kernel;
-
-
+class CBlink blink;
 
 
 int main()
@@ -46,11 +46,7 @@ int main()
 
   terminal.printf("\nterminal ready\n\n");
 
-
-  class CBlink blink;
   timer.add_task(&blink, 200);
-
-  class CStabilityKernel stability_kernel;
 
 
   while (1)
@@ -62,9 +58,9 @@ int main()
     if (key1 == 0)
       pd_controller = true;
 
-  stability_kernel.init(pd_controller);
+   stability_kernel.init(pd_controller);
 
-   timer.add_task(&stability_kernel, 5);
+   timer.add_task(&stability_kernel, 10);
    while (1)
    {
      timer.main();

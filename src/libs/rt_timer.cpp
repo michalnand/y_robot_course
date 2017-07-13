@@ -102,8 +102,7 @@ void CRTTimer::delay_loops(unsigned long int loops)
 
 
 
-//ISR(TIMER0_COMP_vect)
-void timer_interrupt()
+ISR(TIMER0_COMP_vect)
 {
   for (unsigned char i = 0; i < RT_TIMERS_COUNT; i++)
   {

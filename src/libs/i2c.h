@@ -254,7 +254,7 @@ class TI2C : public CI2C_Interface
 };
 
 
-#define I2C_SPEED       10
+#define I2C_SPEED       2
 
 extern class TI2C<TGPIOB, 5, 7, I2C_SPEED> i2c;
 
