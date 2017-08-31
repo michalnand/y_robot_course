@@ -1,0 +1,29 @@
+\frametitle{\bf Implementácia v C++}
+\begin{lstlisting}
+    void CStabilityKernel::operator()()
+    {
+        float speed = 0; //change for forward motion
+
+        gyro.read();
+
+        float angle = 0.0;
+
+        //transform axis (resolution and orientation),
+        //for nice PID constants
+        angle = -gyro.angles.y*0.1;
+
+        e2 = e1;
+        e1 = e0;
+        //subtract required and meassured value
+        e0 = 0.0 - angle;
+
+        //process PID controller
+        u+= k0*e0 + k1*e1 + k2*e2;
+
+        //output for motors, limit output values
+        int left  = saturate(u + speed, -256, 256);
+        int right = saturate(-u + speed, -256, 256);
+
+        motor.run(left, right);
+    }
+    \end{lstlisting}

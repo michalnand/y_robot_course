@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="39cm" height="18cm" viewBox="-202 120 763 345" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="342" y="133" width="217.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="342" y="133" width="217.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="450.95" y="152">CTaskInterface</text>
+    <rect style="fill: #ffffff" x="342" y="161" width="217.9" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="342" y="161" width="217.9" height="8"/>
+    <rect style="fill: #ffffff" x="342" y="169" width="217.9" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="342" y="169" width="217.9" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="345" y="183">+CTaskInterface()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="345" y="199">+virtual ~CTaskInterface()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="345" y="215">+virtual void operator ()()</text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.95" y="177">
+    <tspan x="450.95" y="177"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #ffffff" x="341.4" y="299.9" width="217.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="341.4" y="299.9" width="217.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="450.35" y="318.9">CStabilityKernel</text>
+    <rect style="fill: #ffffff" x="341.4" y="327.9" width="217.9" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="341.4" y="327.9" width="217.9" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="341.9">-kp, ki, kd: float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="357.9">-k0, k1, k2: float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="373.9">-e0, e1, e2, u: float</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="389.9">-gyro: CGyro</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="405.9">-motor: CMotor</text>
+    <rect style="fill: #ffffff" x="341.4" y="411.9" width="217.9" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="341.4" y="411.9" width="217.9" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="425.9">+CStabilityKernel()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="441.9">+~CStabilityKernel()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="344.4" y="457.9">+virtual void operator ()()</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="450.95,240.242 450.95,268.953 450.35,268.953 450.35,299.9 "/>
+    <polygon style="fill: #ffffff" points="458.95,240.242 450.95,224.242 442.95,240.242 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="458.95,240.242 450.95,224.242 442.95,240.242 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-200.328" y="121.001" width="495.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-200.328" y="121.001" width="495.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="47.2221" y="140.001">CRTTimer</text>
+    <rect style="fill: #ffffff" x="-200.328" y="149.001" width="495.1" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-200.328" y="149.001" width="495.1" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-197.328" y="163.001">+g_rt_tasks[RT_TIMERS_COUNT]: sRTTimer</text>
+    <rect style="fill: #ffffff" x="-200.328" y="169.001" width="495.1" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-200.328" y="169.001" width="495.1" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-197.328" y="183.001">+CRTTimer()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-197.328" y="199.001">+CRTTimer()</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-197.328" y="215.001">+add_task(*callback:CTaskInterface,period_ms:unsigned int): int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-197.328" y="231.001">+main(): void</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="294.772,179.001 318.386,179.001 318.386,179 337.528,179 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="329.764,184 339.764,179 329.764,174 "/>
+  </g>
+</svg>

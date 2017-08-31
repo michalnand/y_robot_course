@@ -46,7 +46,7 @@ void CStabilityKernel::init(bool pd_controller)
 
 void CStabilityKernel::operator()()
 {
-  float speed = 0;
+    float speed = 0;
 
     gyro.read();
 
@@ -56,10 +56,13 @@ void CStabilityKernel::operator()()
 
     e2 = e1;
     e1 = e0;
-    e0 = 0.0 - angle;   //subtract required and meassured value
+    //subtract required and meassured value
+    e0 = 0.0 - angle;
 
-    u+= k0*e0 + k1*e1 + k2*e2;  //process PID controller
+    //process PID controller
+    u+= k0*e0 + k1*e1 + k2*e2;
 
+    //output for motors
     int left = saturate(u + speed, -256, 256);
     int right = saturate(-u + speed, -256, 256);
 
