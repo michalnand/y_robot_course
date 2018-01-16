@@ -6470,6 +6470,7 @@ by exp-lbrs.ulp</description>
 <part name="C7" library="resistor" deviceset="C-EU" device="C0805K" value="10uF"/>
 <part name="+3V10" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
+<part name="GND13" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -6565,6 +6566,9 @@ by exp-lbrs.ulp</description>
 <instance part="GND12" gate="1" x="251.46" y="165.1" smashed="yes" rot="R90">
 <attribute name="VALUE" x="253.238" y="162.052" size="1.27" layer="96" rot="R90"/>
 </instance>
+<instance part="GND13" gate="1" x="149.86" y="149.86" smashed="yes">
+<attribute name="VALUE" x="146.812" y="148.082" size="1.27" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -6656,6 +6660,12 @@ by exp-lbrs.ulp</description>
 <pinref part="C7" gate="G$1" pin="2"/>
 <pinref part="GND12" gate="1" pin="GND"/>
 <wire x1="243.84" y1="165.1" x2="248.92" y2="165.1" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="LSM6DS0TR" gate="G$1" pin="SDO"/>
+<pinref part="GND13" gate="1" pin="GND"/>
+<wire x1="154.94" y1="154.94" x2="149.86" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="154.94" x2="149.86" y2="152.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+5V" class="0">
