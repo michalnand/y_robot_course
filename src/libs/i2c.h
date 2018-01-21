@@ -14,7 +14,7 @@
 #define SetLowSDA()   {sda.set_mode(GPIO_MODE_OUT);}
 
 
-class CI2C_Interface
+class I2C_Interface
 {
   public:
     virtual void start() = 0;
@@ -32,7 +32,7 @@ class CI2C_Interface
 };
 
 template <unsigned char port_name, unsigned char sda_pin, unsigned char scl_pin, unsigned char bus_speed = 5, unsigned char scl_port_name = port_name>
-class TI2C : public CI2C_Interface
+class TI2C : public I2C_Interface
 {
   private:
     TGpio<port_name, sda_pin, GPIO_MODE_IN_FLOATING> sda;

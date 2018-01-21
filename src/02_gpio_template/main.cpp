@@ -8,7 +8,7 @@ int main()
 {
   TGpio<TGPIOA, 5, GPIO_MODE_OUT> led1;
   TGpio<TGPIOA, 6, GPIO_MODE_OUT> led2;
-
+ 
   while (1)
   {
     led1 = 0;

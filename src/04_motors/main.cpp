@@ -1,9 +1,9 @@
 #include <gpio.h>
-#include <rt_timer.h>
+#include <timer.h>
 #include <motor.h>
 #include <mem.h>
 
-void motor_test( class CMotor *motor)
+void motor_test(class Motor *motor)
 {
   int speed = 200;
 
@@ -26,24 +26,24 @@ void motor_test( class CMotor *motor)
 
 
 
-class CBlink: public CTaskInterface
+class Blink: public Task
 {
   private:
     TGpio<TGPIOA, 5, GPIO_MODE_OUT> led;
     unsigned int state;
 
   public:
-    CBlink()
+    Blink()
     {
       state = 0;
     }
 
-    ~CBlink()
+    ~Blink()
     {
 
     }
 
-    void operator ()()
+    void main()
     {
       switch (state)
       {
@@ -57,13 +57,13 @@ class CBlink: public CTaskInterface
 
 int main()
 {
-  class CBlink blink;
+  Blink blink;
   TGpio<TGPIOB, 3, GPIO_MODE_IN_PULLUP> key;
 
   timer.add_task(&blink, 200);
 
-  class CMotor *motor;
-  motor = new CMotor;
+  Motor *motor;
+  motor = new Motor;
 
 
   while (1)

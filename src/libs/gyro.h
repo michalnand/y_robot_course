@@ -8,7 +8,7 @@ struct sLSM_3VECT
     int32_t x, y, z;
 };
 
-class CGyro
+class Gyro
 {
   public:
     struct sLSM_3VECT acceleration;
@@ -23,13 +23,13 @@ class CGyro
 
 
   private:
-    class CI2C_Interface *i2c;
+    class I2C_Interface *i2c;
 
   public:
-    CGyro();
-    ~CGyro();
+    Gyro();
+    ~Gyro();
 
-    void init(class CI2C_Interface *i2c_);
+    void init(class I2C_Interface *i2c_);
     void read(bool calibration = false);
 
   private:

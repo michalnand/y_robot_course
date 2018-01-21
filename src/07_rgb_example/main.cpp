@@ -19,16 +19,16 @@ class TI2C<TGPIOC, 3, 0, I2C_SPEED> i2c_2;
 class TI2C<TGPIOC, 4, 0, I2C_SPEED> i2c_3;
 class TI2C<TGPIOC, 5, 0, I2C_SPEED> i2c_4;
 
-
+ 
 int main()
 {
   terminal.printf("\nterminal ready\n\n");
 
-  CAPDS9950 rgb0;
-  CAPDS9950 rgb1;
-  CAPDS9950 rgb2;
-  CAPDS9950 rgb3;
-  CAPDS9950 rgb4;
+  APDS9950 rgb0;
+  APDS9950 rgb1;
+  APDS9950 rgb2;
+  APDS9950 rgb3;
+  APDS9950 rgb4;
 
   int init_res;
 

@@ -3,22 +3,65 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+class Led
+{
+  private:
+    unsigned char pin;
 
-#define LED         (1<<6)
-#define LED_PORT    PORTA
-#define LED_DDR     DDRA
+  public:
+    Led(unsigned char pin)
+    {
+      this->pin = pin;
+      DDRA|= (1<<pin);
+      off();
+    }
+
+
+    void on()
+    {
+      PORTA&=~ (1<<pin);
+    }
+
+    void off()
+    {
+      PORTA|= (1<<pin);
+    }
+
+    void operator =(char value)
+    {
+      if (value != 0)
+        on();
+      else
+        off();
+    }
+};
+
 
 int main()
 {
-  LED_DDR|= LED;
-  LED_PORT&= ~LED;
+  Led led_a(5), led_b(6);
 
+  /*
   while (1)
   {
-    LED_PORT&=~LED;
+    led_a.on();
+    led_b.on();
     _delay_ms(100);
 
-    LED_PORT|= LED;
+    led_a.off();
+    led_b.off();
+    _delay_ms(900);
+  }
+  */
+
+  while (1)
+  { 
+    led_a = 1;
+    led_b = 1;
+    _delay_ms(100);
+
+    led_a = 0;
+    led_b = 0;
     _delay_ms(900);
   }
 }

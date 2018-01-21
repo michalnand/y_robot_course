@@ -4,11 +4,11 @@
 
 #define NO_CHAR       0xffff
 
-class CUSART
+class USART
 {
   public:
-    CUSART();
-    ~CUSART();
+    USART();
+    ~USART();
 
     void putchar(char c);
     char getchar();

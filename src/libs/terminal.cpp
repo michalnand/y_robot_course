@@ -1,27 +1,27 @@
 #include "terminal.h"
 #include <stdarg.h>
 
-class CTerminal terminal;
+class Terminal terminal;
 
 
-CTerminal::CTerminal()
-          :CUSART()
+Terminal::Terminal()
+          :USART()
 {
 
 }
 
-CTerminal::~CTerminal()
+Terminal::~Terminal()
 {
 
 }
 
-void CTerminal::puts(char *s)
+void Terminal::puts(char *s)
 {
   while (*s)
     putchar(*s++);
 }
 
-void CTerminal::puti(int32_t n)
+void Terminal::puti(int32_t n)
 {
   char flag = 0, s[12];
 	unsigned char ptr;
@@ -51,7 +51,7 @@ void CTerminal::puti(int32_t n)
 	puts(s + ptr);
 }
 
-void CTerminal::putui(uint32_t n)
+void Terminal::putui(uint32_t n)
 {
 	char s[12];
 	unsigned char ptr;
@@ -71,7 +71,7 @@ void CTerminal::putui(uint32_t n)
 	puts(s + ptr);
 }
 
-void CTerminal::putx(uint32_t n)
+void Terminal::putx(uint32_t n)
 {
 	char s[12];
 	char tmp;
@@ -97,9 +97,7 @@ void CTerminal::putx(uint32_t n)
  	puts(s + ptr);
 }
 
-#ifdef TERMINAL_USE_FLOAT
-
-void CTerminal::putf(float n, unsigned char decimal_places)
+void Terminal::putf(float n, unsigned char decimal_places)
 {
   unsigned int i, power = 1;
 
@@ -140,10 +138,9 @@ void CTerminal::putf(float n, unsigned char decimal_places)
   puti(frac_part);
 }
 
-#endif
 
 
-void CTerminal::printf(const char *str, ...)
+void Terminal::printf(const char *str, ...)
 {
 	va_list args;
 	va_start(args, str);
@@ -170,9 +167,7 @@ void CTerminal::printf(const char *str, ...)
 	     		case 's': puts((char*)va_arg(args, int)); break;
 	     		case '%': putchar('%'); break;
 
-          #ifdef TERMINAL_USE_FLOAT
           case 'f': putf(va_arg(args, double), 3); break;
-          #endif
 	    	}
 
 			  s_ptr++;

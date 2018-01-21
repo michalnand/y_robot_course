@@ -4,11 +4,11 @@
 #include <avr/io.h>
 
 
-class CMotor
+class Motor
 {
   public:
-    CMotor();
-    ~CMotor();
+    Motor();
+    ~Motor();
 
     void run(int left, int right);
 

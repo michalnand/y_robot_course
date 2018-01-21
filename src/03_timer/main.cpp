@@ -1,26 +1,26 @@
 #include <gpio.h>
 
-#include <rt_timer.h>
+#include <timer.h>
 
 
-class CTaskA: public CTaskInterface
+class TaskA: public Task
 {
   private:
     TGpio<TGPIOA, 5, GPIO_MODE_OUT> led;
     unsigned int state;
 
   public:
-    CTaskA()
+    TaskA()
     {
       state = 0;
     }
 
-    ~CTaskA()
+    ~TaskA()
     {
 
     }
 
-    void operator ()()
+    void main()
     {
       switch (state)
       {
@@ -31,24 +31,24 @@ class CTaskA: public CTaskInterface
 };
 
 
-class CTaskB: public CTaskInterface
+class TaskB: public Task
 {
   private:
     TGpio<TGPIOA, 6, GPIO_MODE_OUT> led;
     unsigned int state;
 
   public:
-    CTaskB()
+    TaskB()
     {
       state = 0;
     }
 
-    ~CTaskB()
+    ~TaskB()
     {
 
     }
 
-    void operator ()()
+    void main()
     {
       switch (state)
       {
@@ -57,12 +57,12 @@ class CTaskB: public CTaskInterface
       }
     }
 };
-
+ 
 
 int main()
 {
-  class CTaskA taskA;
-  class CTaskA taskB;
+  class TaskA taskA;
+  class TaskA taskB;
 
   timer.add_task(&taskA, 100);
   timer.add_task(&taskB, 500);

@@ -10,7 +10,7 @@
 #define LED_DIG1	(1<<0)
 #define LED_DIG2	(1<<1)
 
-CLEDDisplay::CLEDDisplay()
+LEDDisplay::LEDDisplay()
 {
   led_state = 0;
   led_dig1 = 0xff;
@@ -25,19 +25,19 @@ CLEDDisplay::CLEDDisplay()
   timer.add_task(this, 5);
 }
 
-CLEDDisplay::~CLEDDisplay()
+LEDDisplay::~LEDDisplay()
 {
 
 }
 
-void CLEDDisplay::display_hex(unsigned char number)
+void LEDDisplay::display_hex(unsigned char number)
 {
 	led_dig1 = led_display_bcd_7seg(number>>4);
 	led_dig2 = led_display_bcd_7seg(number&0x0f);
 
 }
 
-void CLEDDisplay::display_dec(unsigned char number)
+void LEDDisplay::display_dec(unsigned char number)
 {
   if (number > 99)
     number = 99;
@@ -48,7 +48,7 @@ void CLEDDisplay::display_dec(unsigned char number)
 
 
 
-unsigned char CLEDDisplay::led_display_bcd_7seg(unsigned char number)
+unsigned char LEDDisplay::led_display_bcd_7seg(unsigned char number)
 {
 	unsigned char res;
 	switch(number)
@@ -76,7 +76,7 @@ unsigned char CLEDDisplay::led_display_bcd_7seg(unsigned char number)
 	return (~res);
 }
 
-void CLEDDisplay::operator()()
+void LEDDisplay::main()
 {
   switch (led_state)
 	{

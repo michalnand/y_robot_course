@@ -44,7 +44,7 @@
 #define RGB_PDATAH 			0x1D
 
 
-CAPDS9950::CAPDS9950()
+APDS9950::APDS9950()
 {
   result.r = 0;
   result.g = 0;
@@ -54,12 +54,12 @@ CAPDS9950::CAPDS9950()
   i2c = nullptr;
 }
 
-CAPDS9950::~CAPDS9950()
+APDS9950::~APDS9950()
 {
 
 }
 
-int CAPDS9950::init(class CI2C_Interface *i2c)
+int APDS9950::init(class I2C_Interface *i2c)
 {
   this->i2c = i2c;
 
@@ -84,7 +84,7 @@ int CAPDS9950::init(class CI2C_Interface *i2c)
   return 0;
 }
 
-void CAPDS9950::read()
+void APDS9950::read()
 {
   uint16_t tmp;
 

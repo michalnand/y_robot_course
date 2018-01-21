@@ -1,6 +1,6 @@
 #include "motor.h"
 
-CMotor::CMotor()
+Motor::Motor()
 {
     DDRD = (1<<5)|(1<<6) | (1<<4)|(1<<7);		// vystupy na motory
   	PORTD&=~(1<<5)|(1<<6) | (1<<4)|(1<<7);
@@ -15,13 +15,13 @@ CMotor::CMotor()
     OCR1BL = 0;
 }
 
-CMotor::~CMotor()
+Motor::~Motor()
 {
-
+ 
 }
 
 
-void CMotor::run(int left, int right)
+void Motor::run(int left, int right)
 {
     if (left>255)
   		left = 255;

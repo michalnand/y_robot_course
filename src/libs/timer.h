@@ -3,6 +3,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <task.h>
 
 #define RT_TIMERS_COUNT    8
 
@@ -10,42 +11,14 @@
 #define RT_FREQUENCY        (uint32_t)1000        //1000Hz
 
 
-class CTaskInterface
-{
-  public:
-    CTaskInterface()
-    {
-
-    }
-
-    virtual ~CTaskInterface()
-    {
-
-    }
-
-    virtual void operator ()()
-    {
-
-    }
-};
-
-
-struct sRTTimer
-{
-  CTaskInterface *callback;
-  unsigned int period, cnt;
-  unsigned char flag;
-};
-
-
-class CRTTimer
+class Timer
 {
 
   public:
-    CRTTimer();
-    ~CRTTimer();
+    Timer();
+    ~Timer();
 
-    int add_task(CTaskInterface *callback, unsigned int period_ms);
+    int add_task(Task *callback, unsigned int period_ms);
     void main();
 
     unsigned long int get_time();
@@ -53,7 +26,7 @@ class CRTTimer
     void delay_loops(unsigned long int loops);
 };
 
-extern class CRTTimer timer;
+extern class Timer timer;
 
 
 #endif

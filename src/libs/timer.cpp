@@ -1,12 +1,20 @@
-#include "rt_timer.h"
+#include "timer.h"
+
+
+struct sTimerItem
+{
+  Task *callback;
+  unsigned int period, cnt;
+  unsigned char flag;
+};
 
 volatile unsigned long int g_rt_time;
-struct sRTTimer g_rt_tasks[RT_TIMERS_COUNT];
+struct sTimerItem g_rt_tasks[RT_TIMERS_COUNT];
 
 
-class CRTTimer timer;
+class Timer timer;
 
-CRTTimer::CRTTimer()
+Timer::Timer()
 {
   for (unsigned int i = 0; i < RT_TIMERS_COUNT; i++)
   {
@@ -33,12 +41,12 @@ CRTTimer::CRTTimer()
   sei();
 }
 
-CRTTimer::~CRTTimer()
+Timer::~Timer()
 {
 
 }
 
-int CRTTimer::add_task(CTaskInterface *callback, unsigned int period_ms)
+int Timer::add_task(Task *callback, unsigned int period_ms)
 {
   int timer_id = -1;
 
@@ -63,7 +71,7 @@ int CRTTimer::add_task(CTaskInterface *callback, unsigned int period_ms)
   return timer_id;
 }
 
-void CRTTimer::main()
+void Timer::main()
 {
   for (unsigned int i = 0; i < RT_TIMERS_COUNT; i++)
   {
@@ -71,12 +79,12 @@ void CRTTimer::main()
     if (g_rt_tasks[i].flag != 0)
     {
       g_rt_tasks[i].flag = 0;
-      (*(g_rt_tasks[i].callback))();
-    }
+      g_rt_tasks[i].callback->main();
+    } 
   }
 }
 
-unsigned long int CRTTimer::get_time()
+unsigned long int Timer::get_time()
 {
   volatile unsigned long int tmp;
 
@@ -87,14 +95,14 @@ unsigned long int CRTTimer::get_time()
   return tmp;
 }
 
-void CRTTimer::delay_ms(unsigned long int ms_time)
+void Timer::delay_ms(unsigned long int ms_time)
 {
   volatile unsigned long int time_stop = ms_time + get_time();
   while (get_time() < time_stop)
     __asm("nop");
 }
 
-void CRTTimer::delay_loops(unsigned long int loops)
+void Timer::delay_loops(unsigned long int loops)
 {
   while (loops--)
     __asm("nop");

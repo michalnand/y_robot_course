@@ -3,7 +3,7 @@
 
 #include "i2c.h"
 
-class CVL53L0X
+class VL53L0X
 {
   private:
     int distance_result;
@@ -11,13 +11,13 @@ class CVL53L0X
     unsigned char range_data[14];
 
   private:
-    class CI2C_Interface *i2c;
+    class I2C_Interface *i2c;
 
   public:
-    CVL53L0X();
-    ~CVL53L0X();
+    VL53L0X();
+    ~VL53L0X();
 
-    int init(class CI2C_Interface *i2c_);
+    int init(class I2C_Interface *i2c_);
 
     int read();
     int get();

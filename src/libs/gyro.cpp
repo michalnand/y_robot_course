@@ -90,12 +90,12 @@
 
 
 
-CGyro::CGyro()
+Gyro::Gyro()
 {
 
 }
 
-void CGyro::init(class CI2C_Interface *i2c_)
+void Gyro::init(class I2C_Interface *i2c_)
 {
     i2c = i2c_;
 
@@ -156,12 +156,12 @@ void CGyro::init(class CI2C_Interface *i2c_)
     acceleration.z = 0;
 }
 
-CGyro::~CGyro()
+Gyro::~Gyro()
 {
 
 }
 
-void CGyro::read(bool calibration)
+void Gyro::read(bool calibration)
 {
   if (i2c->read_reg(LSM6DS0_ADDRESS, LSM6DS0_WHO_AM_I) == LSM6DS0_WHO_AM_I_VALUE)
     present = 1;
@@ -215,7 +215,7 @@ void CGyro::read(bool calibration)
 
 
 
-void CGyro::delay_loops(uint32_t loops)
+void Gyro::delay_loops(uint32_t loops)
 {
   while (loops--)
     __asm("nop");

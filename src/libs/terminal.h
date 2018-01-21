@@ -4,11 +4,11 @@
 #include <usart.h>
 #include <stdint.h>
 
-class CTerminal: public CUSART
+class Terminal: public USART
 {
   public:
-    CTerminal();
-    ~CTerminal();
+    Terminal();
+    ~Terminal();
 
     void puts(char *s);
     void puti(int32_t n);
@@ -16,14 +16,9 @@ class CTerminal: public CUSART
     void putx(uint32_t n);
     void putf(float n, unsigned char decimal_places);
     void printf(const char *str, ...);
-
-    void clear_buffer()
-    {
-
-    }
 };
 
-extern class CTerminal terminal;
+extern class Terminal terminal;
 
 
 #endif

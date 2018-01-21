@@ -89,17 +89,17 @@
 #define ALGO_PHASECAL_CONFIG_TIMEOUT                ((unsigned char)0x30)
 
 
-CVL53L0X::CVL53L0X()
+VL53L0X::VL53L0X()
 {
 
 }
 
-CVL53L0X::~CVL53L0X()
+VL53L0X::~VL53L0X()
 {
 
-}
+} 
 
-int CVL53L0X::init(class CI2C_Interface *i2c_)
+int VL53L0X::init(class I2C_Interface *i2c_)
 {
   uint32_t loops;
 
@@ -292,7 +292,7 @@ int CVL53L0X::init(class CI2C_Interface *i2c_)
   return 0;
 }
 
-int CVL53L0X::read()
+int VL53L0X::read()
 {
   i2c->write_reg(VL53L0X_ADDRESS, SYSTEM_INTERRUPT_CLEAR, 0x01); // clear interrupt
   i2c->read_reg_multi(VL53L0X_ADDRESS, RESULT_RANGE_STATUS, range_data, 14); // continuous ranging
@@ -313,7 +313,7 @@ int CVL53L0X::read()
   return distance_result;
 }
 
-int CVL53L0X::get()
+int VL53L0X::get()
 {
   return distance_result;
 }
@@ -325,7 +325,7 @@ int CVL53L0X::get()
 // Get reference SPAD (single photon avalanche diode) count and type
 // based on VL53L0X_get_info_from_device(),
 // but only gets reference SPAD count and type
-bool CVL53L0X::getSPADinfo(unsigned char *count, bool * type_is_aperture)
+bool VL53L0X::getSPADinfo(unsigned char *count, bool * type_is_aperture)
 {
   unsigned char tmp;
   *count = 0;
@@ -371,7 +371,7 @@ bool CVL53L0X::getSPADinfo(unsigned char *count, bool * type_is_aperture)
   return true;
 }
 
-bool CVL53L0X::performSingleRefCalibration(unsigned char vhv_init_byte)
+bool VL53L0X::performSingleRefCalibration(unsigned char vhv_init_byte)
 {
   i2c->write_reg(VL53L0X_ADDRESS, SYSRANGE_START, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
 

@@ -5,7 +5,7 @@
 #define TERMINAL_BAUDRATE   9600
 #define UBRR_VALUE ((((uint32_t)10000000 / (TERMINAL_BAUDRATE * 16UL))) - 1)
 
-CUSART::CUSART()
+USART::USART()
 {
   //set baud rate
   UBRRH = (uint8_t)(UBRR_VALUE>>8);
@@ -19,13 +19,13 @@ CUSART::CUSART()
 }
 
 
-CUSART::~CUSART()
+USART::~USART()
 {
 
 
 }
 
-void CUSART::putchar(char c)
+void USART::putchar(char c)
 {
   //transmit data
   UDR = c;
@@ -35,7 +35,7 @@ void CUSART::putchar(char c)
     __asm("nop");
 }
 
-char CUSART::getchar()
+char USART::getchar()
 {
   unsigned int c;
   while ( (c = ischar()) == NO_CHAR)
@@ -44,7 +44,7 @@ char CUSART::getchar()
   return c;
 }
 
-unsigned int CUSART::ischar()
+unsigned int USART::ischar()
 {
   if ((UCSRA&(1<<RXC)) == 0)
     return NO_CHAR;

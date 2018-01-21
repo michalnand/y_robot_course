@@ -10,19 +10,19 @@ struct sAPDS9950Result
 };
 
 
-class CAPDS9950
+class APDS9950
 {
   private:
-    class CI2C_Interface *i2c;
+    class I2C_Interface *i2c;
 
   public:
     struct sAPDS9950Result result;
 
   public:
-    CAPDS9950();
-    ~CAPDS9950();
+    APDS9950();
+    ~APDS9950();
 
-    int init(class CI2C_Interface *i2c);
+    int init(class I2C_Interface *i2c);
 
     void read();
 };

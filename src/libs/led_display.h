@@ -2,11 +2,11 @@
 #define _LED_DISPLAY_H_
 
 #include "gpio.h"
-#include "rt_timer.h"
+#include "timer.h"
 
-class CLEDDisplay: public CTaskInterface
+class LEDDisplay: public Task
 {
-  friend class CRTTimer;
+  friend class Timer;
 
   private:
     unsigned char led_state;
@@ -14,15 +14,15 @@ class CLEDDisplay: public CTaskInterface
     unsigned char led_dig2;
 
   public:
-    CLEDDisplay(); 
-    ~CLEDDisplay();
+    LEDDisplay();
+    ~LEDDisplay();
 
     void display_hex(unsigned char number);
     void display_dec(unsigned char number);
 
   private:
     unsigned char led_display_bcd_7seg(unsigned char number);
-    void operator()();
+    void main();
 };
 
 
