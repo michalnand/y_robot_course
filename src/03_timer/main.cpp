@@ -62,7 +62,7 @@ class TaskB: public Task
 int main()
 {
   class TaskA taskA;
-  class TaskA taskB;
+  class TaskB taskB;
 
   timer.add_task(&taskA, 100);
   timer.add_task(&taskB, 500);

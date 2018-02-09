@@ -68,8 +68,10 @@ int main()
 
   while (1)
   {
+
     while (key != 0)
       timer.main();
+
 
     motor_test(motor);
   }

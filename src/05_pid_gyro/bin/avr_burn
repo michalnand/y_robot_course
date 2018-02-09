@@ -1,1 +1,1 @@
-sudo avrdude -c USBasp -p m16 -U flash:w:main.hex:i
+avrdude -c USBasp -p m16 -U flash:w:main.hex:i
