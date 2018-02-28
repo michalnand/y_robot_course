@@ -17,7 +17,9 @@
 #define MPU6050_GYRO_CONFIG         ((unsigned char)0x1B)
 */
 
-#define LSM6DS0_ADDRESS                      ((unsigned char)0xD6)
+//#define LSM6DS0_ADDRESS                      ((unsigned char)0xD6)
+#define LSM6DS0_ADDRESS                      ((unsigned char)0xD4)
+
 #define LSM6DS0_WHO_AM_I             ((unsigned char)0x0F)
 #define LSM6DS0_WHO_AM_I_VALUE       ((unsigned char)0x68)
 

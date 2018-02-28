@@ -4,7 +4,7 @@
 #include <gyro.h>
 #include <motor.h>
 #include <pid.h>
-
+#include <led_display.h>
 
 class Blink: public Task
 {
@@ -12,10 +12,14 @@ class Blink: public Task
     TGpio<TGPIOA, 5, GPIO_MODE_OUT> led;
     unsigned int state;
 
+    LEDDisplay led_display;
+    unsigned int i;
+
   public:
     Blink()
     {
       state = 0;
+      i = 0;
     }
 
     ~Blink()
@@ -27,8 +31,8 @@ class Blink: public Task
     {
       switch (state)
       {
-        case 0: led = 1; state = 1; break;
-        case 1: led = 0; state = 0; break;
+        case 0: led = 1; led_display.display_dec(88); state = 1; break;
+        case 1: led = 0; led_display.display_dec(i); state = 0; i++; break;
       }
     }
 };
@@ -72,7 +76,7 @@ class Stabilization: public Task
       float turn = pid.process(0.0 - angle);
 
       float speed = 0;
-      
+
       int left  = turn + speed;
       int right =-turn + speed;
 
@@ -87,7 +91,11 @@ class Stabilization: public Task
 int main()
 {
   Blink blink;
+
+
+
   timer.add_task(&blink, 200);
+
 
   Stabilization stabilization;
 
