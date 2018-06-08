@@ -1,0 +1,2 @@
+avrdude -c USBasp -p m16 -U lfuse:w:0xff:m -U hfuse:w:0xdf:m  #-U efuse:w:0x03:m
+avrdude -c USBasp -p m16 -U flash:w:main.hex:i

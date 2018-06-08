@@ -62,9 +62,9 @@ class Stabilization: public Task
     void mode(bool pd_controller)
     {
       if (pd_controller)
-        pid.init(1.5, 0.0, 5.0, 255.0);
+        pid.init(1.0, 0.0, 1.0, 255.0);
       else
-        pid.init(1.0, 0.0, 0.0, 255.0);
+        pid.init(0.7, 0.0, 0.0, 255.0);
     }
 
 
